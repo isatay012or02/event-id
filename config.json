@@ -1,0 +1,68 @@
+{
+    "WEBServer": {
+        "Port": 8080,
+        "ShutdownTimeout": "5s",
+        "GIN": {
+            "UseRecovery": true,
+            "UseLogger": false,
+            "ReleaseMode": true
+        },
+        "ProfilingEnabled": true,
+        "Controllers": {
+            "Cache": {
+                "Connect": {
+                    "Addr": "10.3.41.11:6379",
+                    "DB": 9,
+                    "Password": "FHSquAbu0p9ZpMrBybBtRzrmnR",
+                    "PoolSize": 10,
+                    "Timeout": "1s"
+                },
+                "Metrics": {
+                    "Enabled": true,
+                    "Label": "api_halykid_events",
+                    "DurationBuckets": [0.001, 0.003, 0.005, 0.007, 0.01, 0.015, 0.02, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.75, 1, 2, 3]
+                },
+                "KeyCheckAID": "URLPARTNERS:%s",
+                "KeyCheckAIDCount": "CLIENTPARTNERSCOUNTER:%s"
+            },
+            "Kafka": {
+                "Metrics": {
+                    "Enabled": true,
+                    "Label": "api_halykid_events",
+                    "DurationBuckets": [0.001, 0.003, 0.005, 0.007, 0.01, 0.015, 0.02, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.75, 1, 2, 3],
+                    "DurationBucketsToSocket": [1, 3, 5, 7, 10, 15, 20, 25, 50, 75, 100, 150, 200, 300, 400]
+                }
+            },
+            "SocketLifeDuration": {
+                "Duration": "5m"
+            }
+        }
+    },
+    "Queue": {
+        "Brokers": [
+            "test-br01.homebank.kz:9092",
+            "test-br02.homebank.kz:9092",
+            "test-br03.homebank.kz:9092",
+            "test-br04.homebank.kz:9092"
+        ],
+        "GroupID": "hb-halykid-auth-codes-frontend-events",
+        "Topic": "hb-halykid-auth-codes",
+        "MaxWaitTime": "500ms",
+        "Metrics": {
+            "Enabled": true,
+            "Label": "api_halykid_events",
+            "DurationBuckets": [0.001, 0.003, 0.005, 0.007, 0.01, 0.015, 0.02, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.75, 1, 2, 3]
+        }
+    },
+    "Logger" : {
+        "Component": "halykid-events",
+        "MinLevel": "DEBUG",
+        "Writer": {
+            "Brokers": ["10.3.40.61:9092"],
+            "Topic": "hb-sa-all"
+        }
+    },
+    "CorsSettings":{
+        "ApplicationLayer":"test"
+    }
+}
